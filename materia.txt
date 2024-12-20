@@ -1,0 +1,19 @@
+¿Que es un ORM (Object Relational Model)?
+Un ORM es un modelo de programación que permite mapear las estructuras de una base de datos relacionales.
+Al abstraer este tipo de programación, delegamos su implementación al backend, es decir, le añadimos una de responsabilidad a la capa transaccional del servidor: Los beneficios son los siguientes:
+- Acciones como CRUD (Create, Read, Update, Delete) son administradas mediante ORM.
+- La implementación de seeds o semillas, nos permiten recuperar, mediante código, la estructura de una BD.
+Una de las bases teóricas para entender este modelo es mediante el conocimiento de DAO (Data Access Object) y DTO (Data Transfer Object), los cuales nos permiten desestructurar un ORM en módulos de abstracción para acceder a la DB y transferir datos desde la misma DB, respectivamente hablando.
+Las contras sería:
+- Delegación de responsabilidades al server
+- Descentralización de trabajo, directa, de una BD.
+
+pasos:
+hay que instalar sequelize con el siguiete comando:
+npm install --save sequelize
+
+luego instalamos los driver que se necesita para la base de datos que se va a ocupar, en este caso postgres con el siguiente comando.
+npm install --save pg pg-hstore
+
+creamos un archivo dentro de las librerias llamada sequelize.js
+y agregamos los siguientes datos.
