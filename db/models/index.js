@@ -1,0 +1,13 @@
+const { User, UserSchema } = require('./user.model');
+// acá tendriamos todos nuestros modelos
+// ...
+// ...
+
+function setupModels(sequelize) {
+  User.init(UserSchema, User.config(sequelize));
+  // acá tendriamos todos nuestros modelos
+  // ...
+  // ...
+}
+
+module.exports = setupModels;

@@ -4,8 +4,11 @@ GET http://localhost:3000/api/v1/products
 ### GET PARA UN PRODUCTO EN PARTICULAR
 GET http://localhost:3000/api/v1/products/f557c5f1-2dab-41df-aa0b-baca1bc8b89f
 
-### GET PARA TRAER TODAS LAS TAREAS
+### GET PARA TRAER TODAS LOS USUARIOS
 GET http://localhost:3000/api/v1/users
+
+### GET PARA BUSCAR SOLO UN USUARIO
+GET http://localhost:3000/api/v1/users/1
 
 
 ### GET PARA OBTENER TODAS LAS CATEGORIAS
