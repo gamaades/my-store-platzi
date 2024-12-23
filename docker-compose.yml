@@ -20,6 +20,26 @@ services:
     ports:
       - 5050:80
 
+  mysql:
+    image: mysql:5
+    environment:
+      - MYSQL_DATABASE=my_store
+      - MYSQL_ROOT_PASSWORD=admin123
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=admin123
+    ports:
+      - 8080:80
+
+
 # levantamos docker con el siguiente comando
 # $ docker-compose up -d postgres
 # bajamos docker con el siguiente comando
@@ -42,3 +62,7 @@ services:
 # $ docker-compose up -d pgadmin
 # entramos a
 # http://localhost:5050/
+# para correr phpmyadmin y que se conecte a la base de datos mysql, este tiene que tener el mismo nombre que el contenedor que hice para la base de datos de mysql, en este caso la base de datos se llama mysql, entonces la configuracion de phpmyadmin tiene que tener la siguiente configuracion para que esta funcione de manera correcta. - MYSQL_HOST=mysql
+# estos se levantan de la siguiente manera
+# docker-compose up -d mysql
+# docker-compose up -d phpmyadmin
