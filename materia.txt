@@ -17,3 +17,19 @@ npm install --save pg pg-hstore
 
 creamos un archivo dentro de las librerias llamada sequelize.js
 y agregamos los siguientes datos.
+
+
+------------------------
+¿Como esta estructurado nuestro proyecto?
+
+Hice este diagrama para entender mejor como funciona el flujo de operaciones dentro de nuestro Backend con Node JS. Utilizamos Express.js para el routing, Sequelize como ORM y PostgreSQL como base de datos.
+
+En resumen:
+- El frontend envía datos a la API con un verbo HTTP.
+- El router (cuyas rutas de API diseñamos usando Express.js) recibe los datos y los verifica usando un Middleware de validación.
+- Si todo está bien, el router llama a los servicios.
+- Los servicios usan un método de POO incluido en la ORM para ejecutar una acción con la DB.
+- La ORM traduce a SQL para comunicarse con la DB.
+- La respuesta de la DB se propaga hasta llegar al router.
+- El router detecta si es un error y llama a un Middleware de gestión de errores (aquí usamos el paquete boom).
+- La respuesta, exitosa o de error se envía como respuesta al Frontend. Y así es como está funcionando nuestro backend hasta el momento!!

@@ -8,7 +8,27 @@ GET http://localhost:3000/api/v1/products/f557c5f1-2dab-41df-aa0b-baca1bc8b89f
 GET http://localhost:3000/api/v1/users
 
 ### GET PARA BUSCAR SOLO UN USUARIO
-GET http://localhost:3000/api/v1/users/1
+GET http://localhost:3000/api/v1/users/3
+
+### POST CREAR UN USUARIO
+POST http://localhost:3000/api/v1/users
+content-type: application/json
+
+{
+  "email":"admin1@gmail.com",
+  "password": "qwerty123.*"
+}
+
+### PATCH. ACTUALIZAR UN USUARIO
+PATCH http://localhost:3000/api/v1/users/3
+content-type: application/json
+
+{
+  "email":"admin@gmail.com"
+}
+
+### DELETE. ELIMINAR UN USUARIO
+DELETE http://localhost:3000/api/v1/users/4
 
 
 ### GET PARA OBTENER TODAS LAS CATEGORIAS
