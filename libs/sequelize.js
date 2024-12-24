@@ -12,26 +12,30 @@ const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
 
 // Construimos la URI de conexión a la base de datos PostgreSQL.
-// const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`; // esta es la conexion a postgres
-const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`; // esta es la conexion a mysql
+const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`; // esta es la conexion a postgres
+// const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`; // esta es la conexion a mysql
 
 // Creamos una instancia de Sequelize, configurándola con la URI de conexión y especificando que el dialecto es 'postgres'.
 const sequelize = new Sequelize(URI, {
-  // dialect: 'postgres', // esta es la conexion a postgres
-  dialect: 'mysql', // esta es la conexion a mysql
+  dialect: 'postgres', // esta es la conexion a postgres
+  // dialect: 'mysql', // esta es la conexion a mysql
   logging: console.log, // Activamos el logging para que Sequelize muestre las consultas SQL en la consola.
-  // dialectOptions: {
-  //   useUTC: false,
-  //   timezone: config.timezone, // Usamos la zona horaria desde el archivo config
-  // },
+  /*POSTGRES*/
   dialectOptions: {
-    timezone: '-03:00', // Configuración correcta para MySQL2
-    // Si utilizas un servidor remoto con SSL:
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
+    useUTC: false,
+    timezone: config.timezone, // Usamos la zona horaria desde el archivo config
   },
+  /*POSTGRES*/
+  /* MYSQL*/
+  // dialectOptions: {
+  //   timezone: '-03:00', // Configuración correcta para MySQL2
+  //   // Si utilizas un servidor remoto con SSL:
+  //   ssl: {
+  //     require: true,
+  //     rejectUnauthorized: false,
+  //   },
+  // },
+  /* MYSQL*/
   timezone: '-03:00', // Esto controla la representación local de las fechas
 });
 
@@ -41,6 +45,7 @@ setupModels(sequelize);
 // Sincronizamos los modelos con la base de datos.
 // Esto significa que Sequelize revisará los modelos definidos y se asegurará de que las tablas correspondientes existan en la base de datos.
 // Si las tablas no existen, Sequelize las creará. Si ya existen, no hará cambios a menos que se utilice una configuración adicional para forzar la sincronización (e.g., alter o force).
+// sequelize no recomienda esto a nivel de producción
 sequelize.sync();
 
 // Exportamos la instancia de Sequelize para que pueda ser utilizada en otras partes de la aplicación.

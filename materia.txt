@@ -33,3 +33,70 @@ En resumen:
 - La respuesta de la DB se propaga hasta llegar al router.
 - El router detecta si es un error y llama a un Middleware de gestión de errores (aquí usamos el paquete boom).
 - La respuesta, exitosa o de error se envía como respuesta al Frontend. Y así es como está funcionando nuestro backend hasta el momento!!
+
+---------------------------
+Las migraciones son:
+- Las migraciones son la forma en que Django propaga cambios en los modelos y los refleja en el esquema de bases de datos. - Django.
+- Las migraciones son como un sistema de control de versiones para la base de datos. - Laravel.
+- Es como un sistema de control de versiones para manejar los cambios desde el código y trackear los cambios en la base de datos. - Sequelize.
+
+Básicamente, las migraciones mantienen el historial del esquema que se lleva en la base de datos. Es un sistema muy usado en ambientes de producción para trackear los cambios sin tener que replicar todo nuevamente (creación de tablas, llaves foráneas, etc). Es decir, permite saber en qué punto estaba para saber qué es lo que se tiene que modificar.
+
+--
+
+sequelize.sync() empieza a leer los modelos, crea tablas y hace relist (se sobrescribe información), no se aconseja que se corra en producción. Es mejor sincronizar con un sistema de migraciones.
+
+Para correr migraciones se utiliza la librería sequelize-cli y se instala como dependencia de desarrollo con el comando npm i sequelize-cli -D.
+Posteriormente, se crea un archivo de configuración .sequelizerc en la carpeta principal.
+
+Configuración de Sequelize CLI para Migraciones
+Sequelize proporciona una librería llamada sequelize-cli que facilita la gestión de migraciones. A continuación, se detallan los pasos para configurarla correctamente:
+Instalación de sequelize-cli
+Para instalar sequelize-cli como dependencia de desarrollo, utiliza el siguiente comando:
+- npm i sequelize-cli --save-dev
+
+Luego, creamos y configuramos el archivo .sequelizerc
+En la raíz de tu proyecto, crea un archivo llamado .sequelizerc. Este archivo define las rutas de configuración, modelos, migraciones y seeders para Sequelize.
+Agrega el siguiente código al archivo .sequelizerc:
+
+module.export = {
+  "config": "./db/config.js",
+  "models-path": "./db/models/",
+  "migrations-path": "./db/migrations/",
+  "seeders-path": "./db/seeders/",
+};
+
+Configuración de la conexión en config.js
+Crea un archivo llamado config.js en la carpeta especificada (por ejemplo, ./db/). Este archivo contendrá la configuración para conectarse a la base de datos.
+El contenido del archivo config.js puede ser el siguiente:
+
+const { config } = require('./../config/config');
+const USER = encodeURIComponent(config.dbUser);
+const PASSWORD = encodeURIComponent(config.dbPassword);
+
+const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+
+module.exports = {
+  development: {
+    url: URI,
+    dialect: 'postgres', // esta es la conexion a postgres
+  },
+  production: {
+    url: URI,
+    dialect: 'postgres', // esta es la conexion a postgres
+  },
+};
+
+Descripción del código
+- development: Configuración para el entorno de desarrollo.
+- production: Configuración para el entorno de producción.
+- url: La URI de conexión generada dinámicamente utilizando las credenciales del archivo de configuración.
+- dialect: Especifica el tipo de base de datos que estás utilizando (en este caso, PostgreSQL).
+
+Notas adicionales
+1. Asegúrate de tener las credenciales correctas en tu archivo de configuración principal (./config/config.js).
+2. Si utilizas otra base de datos (por ejemplo, MySQL), reemplaza postgres por el dialecto correspondiente (por ejemplo, mysql).
+3. Para ejecutar las migraciones, utiliza el comando:
+npx sequelize-cli db:migrate
+4. Si necesitas revertir una migración:
+npx sequelize-cli db:migrate:undo
