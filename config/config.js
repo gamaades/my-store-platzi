@@ -11,4 +11,4 @@ const config = {
   timezone: 'America/Santiago'
 };
 
-module.exports = { config };
+module.exports =  config ;

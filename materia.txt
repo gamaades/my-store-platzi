@@ -100,3 +100,68 @@ Notas adicionales
 npx sequelize-cli db:migrate
 4. Si necesitas revertir una migración:
 npx sequelize-cli db:migrate:undo
+
+Generar Boilerplate para Migraciones
+
+Para configurar el entorno de migraciones en un proyecto con Sequelize, sigue estos pasos:
+
+1. Agregar el script para generar migraciones:
+Incluye la siguiente línea en el archivo package.json, dentro del bloque scripts:
+
+"migrations:generate": "sequelize-cli migrations:generate --name"
+
+2. Ejecutar el comando para crear una nueva migración:
+Usa el siguiente comando en la terminal:
+npm run migrations:generate [name]
+Donde [name] es el nombre de la migración (por ejemplo: create-users-table).
+
+3. Ubicación de las migraciones:
+Las migraciones generadas se guardarán en una carpeta previamente configurada, por ejemplo: db/migrations.
+
+4. Crear manualmente el contenido de la migración:
+A continuación, se muestra un ejemplo de una migración para crear una tabla:
+
+'use strict';
+
+const { UserSchema, USER_TABLE } = require('./../models/user.model');
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  // Crea la tabla definida en el modelo.
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable(USER_TABLE, UserSchema);
+  },
+
+  // Elimina la tabla al revertir la migración.
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable(USER_TABLE);
+  },
+};
+
+// Nota: Este archivo puede incluir migraciones para múltiples modelos, si es necesario.
+
+5. Agregar un script para ejecutar las migraciones:
+En el archivo package.json, incluye el siguiente script:
+"migrations:run": "sequelize-cli db:migrate"
+
+6. Ejecutar las migraciones:
+Una vez configurado, utiliza el siguiente comando para aplicar las migraciones:
+npm run migrations:run
+
+7. Agregar un script para revertir las migraciones:
+En el archivo package.json, incluye el siguiente script:
+"migrations:revert": "sequelize-cli db:migrate:undo"
+
+8. Revertir las migraciones:
+Una vez configurado, utiliza el siguiente comando para aplicar las migraciones:
+npm run migrations:revert
+
+9. Agregar un script para vaciar todas las migraciones:
+En el archivo package.json, incluye el siguiente script:
+"migrations:delete": "sequelize-cli db:migrate:undo:all"
+
+10. Vacia todas las migraciones:
+Una vez configurado, utiliza el siguiente comando para aplicar las migraciones:
+npm run migrations:delete
+
+

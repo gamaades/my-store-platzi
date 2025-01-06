@@ -2,7 +2,7 @@
 const { Sequelize } = require('sequelize');
 
 // Importamos la configuración de la base de datos desde un archivo externo.
-const { config } = require('./../config/config');
+const  config  = require('./../config/config');
 
 // Importamos una función que configura los modelos de la base de datos.
 const setupModels = require('./../db/models');
@@ -46,7 +46,8 @@ setupModels(sequelize);
 // Esto significa que Sequelize revisará los modelos definidos y se asegurará de que las tablas correspondientes existan en la base de datos.
 // Si las tablas no existen, Sequelize las creará. Si ya existen, no hará cambios a menos que se utilice una configuración adicional para forzar la sincronización (e.g., alter o force).
 // sequelize no recomienda esto a nivel de producción
-sequelize.sync();
+// sequelize.sync();
+// La sincronización directa se ha desactivado. Ahora utilizaremos migraciones, ya que es la mejor práctica para gestionar cambios en la estructura de la base de datos de forma controlada y segura.
 
 // Exportamos la instancia de Sequelize para que pueda ser utilizada en otras partes de la aplicación.
 module.exports = sequelize;
