@@ -15,8 +15,9 @@ POST http://localhost:3000/api/v1/users
 content-type: application/json
 
 {
-  "email":"admin@gmail.com",
-  "password": "qwerty123.*"
+  "email":"admin4@gmail.com",
+  "password": "qwerty123.*",
+  "role":"Admin"
 }
 
 ### PATCH. ACTUALIZAR UN USUARIO
@@ -30,6 +31,37 @@ content-type: application/json
 ### DELETE. ELIMINAR UN USUARIO
 DELETE http://localhost:3000/api/v1/users/3
 
+
+### POST CREAR UN CUSTOMER
+POST http://localhost:3000/api/v1/customers
+content-type: application/json
+
+{
+  "name":"Ariel",
+  "lastName":"Mañán",
+  "phone":"+569 9772 2031",
+  "userId":2
+}
+
+### POST CREAR UN CUSTOMER CON EL USUARIO
+POST http://localhost:3000/api/v1/customers
+content-type: application/json
+
+{
+  "name":"Zacha",
+  "lastName":"Colipán",
+  "phone":"+569 2312 2111",
+  "user":{
+    "email":"z.colipan@gmail.com",
+    "password":"123456"
+  }
+}
+
+### GET PARA TRAER TODAS LOS CUSTOMERS
+GET http://localhost:3000/api/v1/customers
+
+### GET PARA TRAER UN CUSTOMER ESPECIFICO
+GET http://localhost:3000/api/v1/customers/1
 
 ### GET PARA OBTENER TODAS LAS CATEGORIAS
 GET http://localhost:3000/api/v1/categories

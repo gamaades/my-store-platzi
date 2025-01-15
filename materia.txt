@@ -165,3 +165,53 @@ Una vez configurado, utiliza el siguiente comando para aplicar las migraciones:
 npm run migrations:delete
 
 
+con el siguiente comando creamos la nueva migración para el alter table con el role
+npm run migrations:generate add-role
+
+------------------------------------------
+
+Creación y Migración de Customer en un Proyecto Node.js
+1. Crear el Modelo customer.model.js:
+- Ubica el archivo en la carpeta bd/models.
+- Define el esquema del modelo y las propiedades necesarias.
+
+2. Registrar el Modelo en index.js:
+- Dentro de la carpeta bd/models, importa y registra el modelo en el archivo index.js.
+
+3. Crear el Servicio de Customer:
+- Genera un archivo de servicio, por ejemplo, customer.service.js.
+- Implementa los métodos necesarios para interactuar con la base de datos (CRUD).
+
+4. Generar la Migración Inicial:
+- Una vez configurado todo, genera la migración con el siguiente comando:
+* npm run migrations:generate create-customer
+
+5. Actualizar la Base de Datos con Cambios en el Modelo:
+- Si necesitas agregar un cambio en la base de datos, como hacer que un campo sea único, modifica el modelo. Por ejemplo:
+
+userId: {
+  field: 'user_id',
+  allowNull: false,
+  type: DataTypes.INTEGER,
+  unique: true,
+  references: {
+    model: USER_TABLE,
+    key: 'id',
+  },
+  onUpdate: 'CASCADE',
+  onDelete: 'SET NULL',
+},
+- Este cambio configura la columna userId para ser única, además de establecer relaciones y reglas de actualización/eliminación.
+
+6. Generar la Migración para el Cambio:
+- Genera una nueva migración para reflejar los cambios realizados en el modelo:
+* npm run migrations:generate update-customer-add-unique-userId
+
+7. Ejecutar las Migraciones:
+- Después de generar las migraciones, aplícalas para que los cambios sean efectivos en la base de datos:
+* npm run migrations:run
+
+Nota Adicional:
+- Si necesitas modificar una columna existente (como en este caso), asegúrate de reflejar el cambio tanto en el modelo como en la migración correspondiente.
+
+Este flujo te asegura una correcta sincronización entre tu modelo, migraciones y la base de datos.
